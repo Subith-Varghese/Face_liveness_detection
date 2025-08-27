@@ -1,0 +1,9 @@
+tensorflow
+numpy
+opencv-python
+matplotlib
+opendatasets
+scipy
+pillow
+scikit-learn 
+facenet-pytorch
