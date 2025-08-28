@@ -31,7 +31,7 @@ class LivenessPredictor:
             logger.error(f"❌ Failed to load model: {e}")
             raise e
 
-    def predict_liveness(self, face):
+    def predict_liveness(self, face,threshold=0.746):
         try:
             # Preprocess image
             img = cv2.resize(face, (224, 224))
@@ -41,12 +41,11 @@ class LivenessPredictor:
 
             # Predict using sigmoid output
             prob = self.model.predict(img_array, verbose=0)[0][0]
-            class_idx = 1 if prob >= 0.5 else 0
+            class_idx = 1 if prob >= threshold else 0
             label = self.class_labels[class_idx]
 
             # If spoof → probability = prob, if live → probability = 1 - prob
             score = prob if class_idx == 1 else 1 - prob
-
             return label, score
         except Exception as e:
             logger.error(f"❌ Liveness prediction failed: {e}")

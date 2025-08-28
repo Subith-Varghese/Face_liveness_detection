@@ -2,6 +2,8 @@
 face_detection/data/
 face_liveness/data/
 
+user_images/
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[codz]
