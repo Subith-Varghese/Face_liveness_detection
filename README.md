@@ -1,6 +1,9 @@
 # 🧑‍💻 Face Recognition with Liveness Detection & Attendance System
 
-This project integrates **YOLOv11 (for face detection)**, a **CNN model (for liveness detection)**, and **FaceNet (for recognition)** to build a **real-time face authentication and attendance logging system**.  
+This project integrates:
+- **YOLOv11** → Face detection  
+- **MobileNetV2 (CNN)** → Face liveness detection (anti-spoofing)  
+- **FaceNet (InceptionResnetV1)** → Face recognition    
 
 It ensures that only **live human faces** are recognized and prevents spoofing attempts (photos, videos, printouts). Attendance is automatically logged once a registered user is recognized.
 
@@ -37,12 +40,16 @@ project/
 
 ## Workflow
 
-### 1. **Face Detection (YOLOv11)**
+### 1. Face Detection (YOLOv11)
 - Detects faces in real-time using the trained YOLOv11 model (`best.pt`).
 - Crops the detected faces for further processing.
 
-### 2. **Liveness Detection (CNN)**
-- Pre-trained CNN (`face_liveness_best.h5`) determines if the detected face is:
+### 2. Liveness Detection (MobileNetV2)
+- Two-stage training:
+  - Stage 1 → Train top layers (frozen base).
+  - Stage 2 → Fine-tune last layers.
+- It produces face_liveness_best.h5.
+- `face_liveness_best.h5` determines if the detected face is:
   - ✅ **Live** → Proceed to recognition  
   - ❌ **Spoof (photo/video/print)** → Rejected immediately  
 
@@ -57,6 +64,33 @@ project/
   - Prevents duplicate logging in the same session.
 
 ---
+
+```
+           ┌─────────────┐
+           │   YOLOv11   │
+           │ Face Detect │
+           └──────┬──────┘
+                  │ Cropped Face
+                  ▼
+           ┌─────────────┐
+           │  CNN Model  │
+           │ LivenessChk │
+           └──────┬──────┘
+         Live     │     Spoof
+          │       │
+          ▼       ▼
+   ┌───────────┐  ✖ SPOOF REJECTED
+   │  FaceNet  │
+   │ Embedding │
+   └─────┬─────┘
+         │ Compare (Cosine Similarity)
+         ▼
+   ┌─────────────┐
+   │ Recognition │───► Attendance Logged (CSV)
+   └─────────────┘
+
+
+```
 
 ## 🛠️ Installation
 
