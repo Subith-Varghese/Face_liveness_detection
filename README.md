@@ -148,9 +148,10 @@ attendance.csv
 ## Key Features
 
 ✅ Multi-Face Detection (handles multiple people simultaneously).
-✅ Anti-Spoofing (CNN liveness detection).
+✅ Anti-Spoofing via CNN-based liveness detection.
 ✅ Real-Time Recognition (using YOLOv11 + FaceNet).
-✅ Automatic Attendance Logging.
+✅ User-friendly registration system.
+✅ Automatic attendance logging (attendance.csv).
 ✅ Scalable User Registration (database grows dynamically).
 
 
