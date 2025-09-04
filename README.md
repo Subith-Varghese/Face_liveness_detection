@@ -62,13 +62,12 @@ project/
 
 ```bash
 # Clone repository
-git clone https://github.com/your-username/face-recognition-attendance.git
+git clone https://github.com/Subith-Varghese/Face_liveness_detection.git
 cd face-recognition-attendance
 
 # Create virtual environment
 python -m venv venv
-source venv/bin/activate  # On Linux/Mac
-venv\Scripts\activate     # On Windows
+venv\Scripts\activate     
 
 # Install dependencies
 pip install -r requirements.txt
